@@ -131,7 +131,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <th><?php _e('标题'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('作者'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('分类'); ?></th>
-                                <th><?php _e('日期'); ?></th>
+                                <th><?php _e('发布日期'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
