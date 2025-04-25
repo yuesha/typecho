@@ -272,6 +272,7 @@ function install_get_default_options(): array
             'siteUrl' => install_get_site_url(),
             'defaultCategory' => 1,
             'allowRegister' => 0,
+            'navPos' => 0,
             'defaultAllowComment' => 1,
             'defaultAllowPing' => 1,
             'defaultAllowFeed' => 1,

@@ -6,6 +6,7 @@ if (!defined('__TYPECHO_ADMIN__')) {
 $header = '<link rel="stylesheet" href="' . $options->adminStaticUrl('css', 'normalize.css', true) . '">
 <link rel="stylesheet" href="' . $options->adminStaticUrl('css', 'grid.css', true) . '">
 <link rel="stylesheet" href="' . $options->adminStaticUrl('css', 'style.css', true) . '">';
+if ($options->navPos) $header .= '<link rel="stylesheet" href="' . $options->adminStaticUrl('css', 'nav_bottom.css', true) . '">';
 
 /** 注册一个初始化插件 */
 $header = \Typecho\Plugin::factory('admin/header.php')->filter('header', $header);

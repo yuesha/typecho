@@ -1,0 +1,1 @@
+/* 移动端导航条在底部的css控制文件 */ @media (max-width: 575px) {body {margin-top: 0; } .typecho-head-nav {top: auto; bottom: 0; } .typecho-head-nav button.menu-bar.focus+#typecho-nav-list {top: auto; bottom: 36px; } .typecho-head-nav button.menu-bar.focus+#typecho-nav-list>ul {position: static; } .typecho-head-nav button.menu-bar.focus+#typecho-nav-list>ul .child {bottom: 0; top: auto; } }

@@ -134,6 +134,11 @@ class XmlRpc extends Contents implements ActionInterface, Hook
                 'desc'     => _t('是否允许注册'),
                 'readonly' => false,
                 'option'   => 'allowRegister'
+            ],
+            'admin_nav_position' => [
+                'desc'     => _t('后台导航栏位置'),
+                'readonly' => false,
+                'option'   => 'navPos'
             ]
         ];
     }

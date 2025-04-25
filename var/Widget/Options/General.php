@@ -90,6 +90,7 @@ class General extends Options implements ActionInterface
             'title',
             'description',
             'keywords',
+            'navPos',
             'allowRegister',
             'allowXmlRpc',
             'lang',
@@ -196,6 +197,16 @@ class General extends Options implements ActionInterface
             _t('允许访问者注册到你的网站, 默认的注册用户不享有任何写入权限.')
         );
         $form->addInput($allowRegister);
+
+        /** 导航栏位置 */
+        $navPos = new Form\Element\Radio(
+            'navPos',
+            ['0' => _t('顶部'), '1' => _t('底部')],
+            $this->options->navPos,
+            _t('后台导航栏位置'),
+            _t('打开后台之后，导航栏展示的具体位置.')
+        );
+        $form->addInput($navPos);
 
         /** XMLRPC */
         $allowXmlRpc = new Form\Element\Radio(
