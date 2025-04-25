@@ -119,9 +119,10 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                             <colgroup>
                                 <col width="20" class="kit-hidden-mb"/>
                                 <col width="6%" class="kit-hidden-mb"/>
-                                <col width="45%"/>
+                                <col width="40%"/>
                                 <col width="" class="kit-hidden-mb"/>
-                                <col width="18%" class="kit-hidden-mb"/>
+                                <col width="10%" class="kit-hidden-mb"/>
+                                <col width="16%"/>
                                 <col width="16%"/>
                             </colgroup>
                             <thead>
@@ -131,7 +132,8 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <th><?php _e('标题'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('作者'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('分类'); ?></th>
-                                <th><?php _e('发布日期'); ?></th>
+                                <th><?php _e('修改日期'); ?></th>
+                                <th><?php _e('创建日期'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -183,6 +185,17 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                                     . (isset($request->status) ? '&status=' . $request->filter('encode')->status : ''));
                                                 echo '">' . $category['name'] . '</a>'; ?><!--
                                             --><?php endforeach; ?>
+                                        </td>
+                                        <td>
+                                            <?php if ('post_draft' == $posts->type || $posts->revision): ?>
+                                                <span class="description">
+                                <?php $modifyDate = new \Typecho\Date($posts->revision ? $posts->revision['modified'] : $posts->modified); ?>
+                                <?php _e('保存于 %s', $modifyDate->word()); ?>
+                                </span>
+                                            <?php else: ?>
+                                                <?php $modifyDate = new \Typecho\Date($posts->modified); ?>
+                                                <?php _e('%s', $modifyDate->word()); ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php if ('post_draft' == $posts->type || $posts->revision): ?>
