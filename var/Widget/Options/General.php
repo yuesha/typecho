@@ -203,8 +203,8 @@ class General extends Options implements ActionInterface
             'navPos',
             ['0' => _t('顶部'), '1' => _t('底部')],
             $this->options->navPos,
-            _t('后台导航栏位置'),
-            _t('打开后台之后，导航栏展示的具体位置.')
+            _t('移动端后台导航栏位置'),
+            _t('手机端（即宽度大于1200px）导航栏展示的具体位置.')
         );
         $form->addInput($navPos);
 
