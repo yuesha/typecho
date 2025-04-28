@@ -133,7 +133,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <th class="kit-hidden-mb"><?php _e('作者'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('分类'); ?></th>
                                 <th><?php _e('修改日期'); ?></th>
-                                <th><?php _e('创建日期'); ?></th>
+                                <th><?php _e('发布日期'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -199,10 +199,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                         </td>
                                         <td>
                                             <?php if ('post_draft' == $posts->type || $posts->revision): ?>
-                                                <span class="description">
-                                <?php $modifyDate = new \Typecho\Date($posts->revision ? $posts->revision['modified'] : $posts->modified); ?>
-                                <?php _e('保存于 %s', $modifyDate->word()); ?>
-                                </span>
+                                                <span class="description">-</span>
                                             <?php else: ?>
                                                 <?php $posts->dateWord(); ?>
                                             <?php endif; ?>
