@@ -119,11 +119,11 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                             <colgroup>
                                 <col width="20" class="kit-hidden-mb"/>
                                 <col width="6%" class="kit-hidden-mb"/>
-                                <col width="40%"/>
-                                <col width="" class="kit-hidden-mb"/>
+                                <col />
+                                <col width="100px" class="kit-hidden-mb"/>
                                 <col width="10%" class="kit-hidden-mb"/>
-                                <col width="16%"/>
-                                <col width="16%"/>
+                                <col width="150px" />
+                                <col width="150px" class="kit-hidden-mb"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -133,7 +133,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <th class="kit-hidden-mb"><?php _e('作者'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('分类'); ?></th>
                                 <th><?php _e('修改日期'); ?></th>
-                                <th><?php _e('发布日期'); ?></th>
+                                <th class="kit-hidden-mb"><?php _e('发布日期'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -197,7 +197,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                                 <?php _e('%s', $modifyDate->word()); ?>
                                             <?php endif; ?>
                                         </td>
-                                        <td>
+                                        <td class="kit-hidden-mb">
                                             <?php if ('post_draft' == $posts->type || $posts->revision): ?>
                                                 <span class="description">-</span>
                                             <?php else: ?>
