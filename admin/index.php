@@ -41,9 +41,15 @@ $stat = \Widget\Stat::alloc();
                         <?php if ($user->pass('administrator', true)): ?>
                             <li><a href="<?php $options->adminUrl('options-theme.php'); ?>"><?php _e('主体外观修改'); ?></a></li>
                         <?php
-                            // 注册一个首页快捷按钮插件
-                            \Typecho\Plugin::factory('admin/index.php')->call('quickBtn');
+                            // 注册一个首页快捷按钮插件-如果直接输出，就不用这里处理了
+                            $btns = \Typecho\Plugin::factory('admin/index.php')->call('quickBtn');
+                            if (!empty($btns) && is_array($btns)) {
+                                foreach ($btns as $btn) {
+                                    echo sprintf('<li><a href="%s"> %s </a></li>', ($btn['href'] ?? ''), _t($btn['title'] ?? ''));
+                                }
+                            }
                         ?>
+
                         <?php endif; ?>
                     <?php endif; ?>
                 </ul>
