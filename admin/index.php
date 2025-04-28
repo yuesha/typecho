@@ -16,7 +16,6 @@ $stat = \Widget\Stat::alloc();
 
                 <ul id="start-link" class="clearfix">
                     <?php if ($user->pass('contributor', true)): ?>
-                        <li><a href="<?php $options->adminUrl('write-post.php'); ?>"><?php _e('撰写新文章'); ?></a></li>
                         <?php if ($user->pass('editor', true) && 'on' == $request->get('__typecho_all_comments') && $stat->waitingCommentsNum > 0): ?>
                             <li>
                                 <a href="<?php $options->adminUrl('manage-comments.php?status=waiting'); ?>"><?php _e('待审核的评论'); ?></a>
@@ -40,7 +39,7 @@ $stat = \Widget\Stat::alloc();
                             </li>
                         <?php endif; ?>
                         <?php if ($user->pass('administrator', true)): ?>
-                            <li><a href="<?php $options->adminUrl('themes.php'); ?>"><?php _e('更换外观'); ?></a></li>
+                            <li><a href="<?php $options->adminUrl('options-theme.php'); ?>"><?php _e('主体外观修改'); ?></a></li>
                             <li><a href="<?php $options->adminUrl('plugins.php'); ?>"><?php _e('插件管理'); ?></a></li>
                             <li><a href="<?php $options->adminUrl('options-general.php'); ?>"><?php _e('系统设置'); ?></a>
                             </li>
