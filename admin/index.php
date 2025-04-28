@@ -40,12 +40,12 @@ $stat = \Widget\Stat::alloc();
                         <?php endif; ?>
                         <?php if ($user->pass('administrator', true)): ?>
                             <li><a href="<?php $options->adminUrl('options-theme.php'); ?>"><?php _e('主体外观修改'); ?></a></li>
-                            <li><a href="<?php $options->adminUrl('plugins.php'); ?>"><?php _e('插件管理'); ?></a></li>
-                            <li><a href="<?php $options->adminUrl('options-general.php'); ?>"><?php _e('系统设置'); ?></a>
-                            </li>
+                        <?php
+                            // 注册一个首页快捷按钮插件
+                            \Typecho\Plugin::factory('admin/index.php')->call('quickBtn');
+                        ?>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <!--<li><a href="<?php $options->adminUrl('profile.php'); ?>"><?php _e('更新我的资料'); ?></a></li>-->
                 </ul>
             </div>
 
