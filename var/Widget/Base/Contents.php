@@ -735,6 +735,9 @@ class Contents extends Base implements QueryInterface, RowFilterInterface, Prima
     {
         if ('attachment' == $this->type) {
             $content = json_decode($this->row['text'], true);
+            // fix: 数据库存储的结构为 serialize 格式，所以用json解码会为空 250428
+            if (empty($content)) $content = unserialize($this->row['text']);
+            if (empty($content)) return null;
 
             //增加数据信息
             $attachment = new Config($content);
