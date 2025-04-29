@@ -170,6 +170,10 @@ class Edit extends Options implements ActionInterface
             } else {
                 foreach ($options as $option) {
                     $value = json_decode($option['value'], true);
+                    // fix: 数据库存储的结构为 serialize 格式，所以用json解码会为空 250429
+                    if (empty($value)) $value = unserialize($option['value']);
+                    if (empty($value)) continue;
+
                     $value = array_merge($value, $settings);
 
                     $db->query($db->update('table.options')
