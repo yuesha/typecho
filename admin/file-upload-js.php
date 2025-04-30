@@ -230,8 +230,6 @@ $(document).ready(function() {
         }
 
         return async function (file) {
-            file.id = 'upload-' + (index++);
-
             if (file.size > maxSize) {
                 // 不是图片，直接抛出去
                 if (!allowedTypes.includes(file.type)) return fileUploadError('size', file);
@@ -239,6 +237,7 @@ $(document).ready(function() {
                 // 进行压缩
                 file = await compressImage(file);
             }
+            file.id = 'upload-' + (index++);
 
             const match = file.name.match(/\.([a-z0-9]+)$/i);
             if (!match || types.indexOf(match[1].toLowerCase()) < 0) {
