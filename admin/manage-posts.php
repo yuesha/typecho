@@ -28,6 +28,10 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                             <a href="<?php $options->adminUrl('manage-posts.php'
                                 . (isset($request->uid) ? '?uid=' . $request->filter('encode')->uid : '')); ?>"><?php _e('可用'); ?></a>
                         </li>
+                        <li<?php if ('publish' == $request->get('status')): ?> class="current"<?php endif; ?>>
+                            <a href="<?php $options->adminUrl('manage-posts.php?status=publish&is_feature=1'
+                                . (isset($request->uid) ? '&uid=' . $request->filter('encode')->uid : '')); ?>"><?php _e('未来发布'); ?></a>
+                        </li>
                         <li<?php if ('waiting' == $request->get('status')): ?> class="current"<?php endif; ?>><a
                                 href="<?php $options->adminUrl('manage-posts.php?status=waiting'
                                     . (isset($request->uid) ? '&uid=' . $request->filter('encode')->uid : '')); ?>"><?php _e('待审核'); ?>

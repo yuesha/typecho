@@ -83,6 +83,15 @@ class Admin extends Contents
                 'post_draft',
                 'waiting'
             );
+        } elseif ($this->request->is('status=publish')) {
+            $whereStr = 'table.contents.type = ? AND table.contents.status = ?';
+            if ($this->request->is('is_feature=1')) $whereStr .= ' AND created > UNIX_TIMESTAMP()';
+
+            $select->where(
+                $whereStr,
+                'post',
+                'publish',
+            );
         } else {
             $select->where(
                 'table.contents.type = ? OR table.contents.type = ?',
