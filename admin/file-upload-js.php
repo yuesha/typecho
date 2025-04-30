@@ -71,7 +71,7 @@ $(document).ready(function() {
     }).data('url');
 
     const btn = $('.upload-file');
-    const fileInput = $('<input type="file" name="file" />').hide().insertAfter(btn);
+    const fileInput = $('<input type="file" name="file" accept="image/*" multiple="multiple" />').hide().insertAfter(btn);
 
     btn.click(function () {
         fileInput.click();
@@ -83,7 +83,9 @@ $(document).ready(function() {
             return;
         }
 
-        Typecho.uploadFile(this.files[0]);
+        for (var i = 0; i < this.files.length; i++) {
+            Typecho.uploadFile(this.files[i]);
+        }
     });
 
     function fileUploadStart (file) {
