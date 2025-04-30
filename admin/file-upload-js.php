@@ -8,6 +8,9 @@ if (preg_match("/^([0-9]+)([a-z]{1,2})?$/i", $phpMaxFilesize, $matches)) {
 
     $phpMaxFilesize = round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
 }
+// 注册一个上传js脚本限制大小插件-插件如果有返回值，就与配置的值，取最小
+$pluginMaxFilesize = \Typecho\Plugin::factory('admin/file-upload-js.php')->call('uploadMaxFileSize');
+if (!is_null($pluginMaxFilesize) && !empty($pluginMaxFilesize)) $phpMaxFilesize = min($phpMaxFilesize, $pluginMaxFilesize);
 ?>
 
 <script>
@@ -143,6 +146,7 @@ $(document).ready(function() {
         const types = '<?php echo json_encode($options->allowedAttachmentTypes); ?>';
         const maxSize = <?php echo $phpMaxFilesize ?>;
         const queue = [];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         let index = 0;
 
         const getUrl = function () {
@@ -186,11 +190,52 @@ $(document).ready(function() {
             });
         };
 
-        return function (file) {
+        // 图片压缩
+        async function compressImage(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let width = img.width;
+                    let height = img.height;
+                    let quality = 0.9;
+
+                    function compress() {
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        canvas.toBlob((blob) => {
+                            if (blob.size <= maxSize) {
+                                // 将 Blob 对象转换为 File 对象
+                                const compressedFile = new File([blob], file.name, { type: file.type });
+                                resolve(compressedFile);
+                            } else {
+                                quality *= 0.9;
+                                width *= 0.9;
+                                height *= 0.9;
+                                compress();
+                            }
+                        }, file.type, quality);
+                    }
+
+                    compress();
+                };
+            });
+        }
+
+        return async function (file) {
             file.id = 'upload-' + (index++);
 
             if (file.size > maxSize) {
-                return fileUploadError('size', file);
+                // 不是图片，直接抛出去
+                if (!allowedTypes.includes(file.type)) return fileUploadError('size', file);
+
+                // 进行压缩
+                file = await compressImage(file);
             }
 
             const match = file.name.match(/\.([a-z0-9]+)$/i);
