@@ -103,15 +103,17 @@ class Backup extends BaseOptions implements ActionInterface
      */
     private function export()
     {
+        $putServerStr = '';
         $backupFile = tempnam(sys_get_temp_dir(), 'backup_');
         $fp = fopen($backupFile, 'wb');
         $host = parse_url($this->options->siteUrl, PHP_URL_HOST);
+        $fileName = date('YmdHis') . '_' . $host . '_' . uniqid() . '.dat';
         $this->response->setContentType('application/octet-stream');
-        $this->response->setHeader('Content-Disposition', 'attachment; filename="'
-            . date('Ymd') . '_' . $host . '_' . uniqid() . '.dat"');
+        $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"');
 
         $header = str_replace('XXXX', self::HEADER_VERSION, self::HEADER);
         fwrite($fp, $header);
+        $putServerStr .= $header;
         $db = $this->db;
 
         foreach ($this->types as $type => $val) {
@@ -121,14 +123,21 @@ class Backup extends BaseOptions implements ActionInterface
                 $page++;
 
                 foreach ($rows as $row) {
-                    fwrite($fp, $this->buildBuffer($val, $this->applyFields($type, $row)));
+                    $cont = $this->buildBuffer($val, $this->applyFields($type, $row));
+                    $putServerStr .= $cont;
+                    fwrite($fp, $cont);
                 }
             } while (count($rows) == 20);
         }
 
         self::pluginHandle()->call('export', $fp);
         fwrite($fp, $header);
+        $putServerStr .= $header;
         fclose($fp);
+        // 不存在目录时创建
+        if (!file_exists(__TYPECHO_BACKUP_DIR__)) mkdir(__TYPECHO_BACKUP_DIR__);
+
+        file_put_contents(__TYPECHO_BACKUP_DIR__ . '/' . $fileName, $putServerStr);
 
         $this->response->throwFile($backupFile, 'application/octet-stream');
     }
