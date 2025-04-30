@@ -117,7 +117,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                     <div class="typecho-table-wrap">
                         <table class="typecho-list-table">
                             <colgroup>
-                                <col width="20" class="kit-hidden-mb"/>
+                                <col width="40" class="kit-hidden-mb"/>
                                 <col width="6%" class="kit-hidden-mb"/>
                                 <col />
                                 <col width="100px" class="kit-hidden-mb"/>
