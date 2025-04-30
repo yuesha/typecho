@@ -57,6 +57,19 @@ class Stat extends Base
     }
 
     /**
+     * 获取已发布的文件数目
+     *
+     * @return integer
+     */
+    protected function ___publishedAttachmentNum(): int
+    {
+        return $this->db->fetchObject($this->db->select(['COUNT(cid)' => 'num'])
+            ->from('table.contents')
+            ->where('table.contents.type = ?', 'attachment')
+            ->where('table.contents.status = ?', 'publish'))->num;
+    }
+
+    /**
      * 获取待审核的文章数目
      *
      * @return integer

@@ -10,8 +10,8 @@ $stat = \Widget\Stat::alloc();
         <?php include 'page-title.php'; ?>
         <div class="row typecho-page-main">
             <div class="col-mb-12 welcome-board" role="main">
-                <p><?php _e('目前有 <em>%s</em> 篇文章, 并有 <em>%s</em> 条关于你的评论在 <em>%s</em> 个分类中.',
-                        $stat->myPublishedPostsNum, $stat->myPublishedCommentsNum, $stat->categoriesNum); ?>
+                <p><?php _e('目前有 <em>%s</em> 篇文章, <em>%s</em> 个分类，<em>%s</em>个标签，上传了<em>%s</em>个文件.',
+                        $stat->myPublishedPostsNum, $stat->categoriesNum, $stat->tagsNum, $stat->publishedAttachmentNum); ?>
                     <br><?php _e('点击下面的链接快速开始:'); ?></p>
 
                 <ul id="start-link" class="clearfix">
