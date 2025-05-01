@@ -92,6 +92,8 @@ class Admin extends Contents
                 'post',
                 'publish',
             );
+            $select->order('table.contents.created', Db::SORT_DESC);
+
         } else {
             $select->where(
                 'table.contents.type = ? OR table.contents.type = ?',
