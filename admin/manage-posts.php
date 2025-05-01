@@ -6,6 +6,8 @@ include 'menu.php';
 $stat = \Widget\Stat::alloc();
 $posts = \Widget\Contents\Post\Admin::alloc();
 $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\Cookie::get('__typecho_all_posts'));
+// 是否是未来发布的文章
+$isFeature = $request->is('status=publish') && $request->is('is_feature=1');
 ?>
 <div class="main">
     <div class="body container">
@@ -126,8 +128,8 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <col />
                                 <col width="100px" class="kit-hidden-mb"/>
                                 <col width="10%" class="kit-hidden-mb"/>
-                                <col width="150px" />
-                                <col width="150px" class="kit-hidden-mb"/>
+                                <col width="150px" class="<?php if ($isFeature) echo 'kit-hidden-mb';?>"/>
+                                <col width="150px" class="<?php if (!$isFeature) echo 'kit-hidden-mb';?>"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -136,8 +138,8 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                 <th><?php _e('标题'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('作者'); ?></th>
                                 <th class="kit-hidden-mb"><?php _e('分类'); ?></th>
-                                <th><?php _e('修改日期'); ?></th>
-                                <th class="kit-hidden-mb"><?php _e('发布日期'); ?></th>
+                                <th class="<?php if ($isFeature) echo 'kit-hidden-mb';?>"><?php _e('修改日期'); ?></th>
+                                <th class="<?php if (!$isFeature) echo 'kit-hidden-mb';?>"><?php _e('发布日期'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -190,7 +192,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                                 echo '">' . $category['name'] . '</a>'; ?><!--
                                             --><?php endforeach; ?>
                                         </td>
-                                        <td>
+                                        <td class="<?php if ($isFeature) echo 'kit-hidden-mb';?>">
                                             <?php if ('post_draft' == $posts->type || $posts->revision): ?>
                                                 <span class="description">
                                 <?php $modifyDate = new \Typecho\Date($posts->revision ? $posts->revision['modified'] : $posts->modified); ?>
@@ -201,7 +203,7 @@ $isAllPosts = ('on' == $request->get('__typecho_all_posts') || 'on' == \Typecho\
                                                 <?php _e('%s', $modifyDate->word()); ?>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="kit-hidden-mb">
+                                        <td class="<?php if (!$isFeature) echo 'kit-hidden-mb';?>">
                                             <?php if ('post_draft' == $posts->type || $posts->revision): ?>
                                                 <span class="description">-</span>
                                             <?php else: ?>
