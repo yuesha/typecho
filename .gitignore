@@ -38,3 +38,4 @@ usr/themes/*
 node_modules/
 tools/tmp/
 /sw.min.js
+favicon.ico
