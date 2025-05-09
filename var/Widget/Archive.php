@@ -643,8 +643,8 @@ class Archive extends Contents
                         $select->where('table.contents.status = ?', 'publish');
                     }
                 }
-                // 不限制未到时间的 定时发布 文章
-                // $select->where('table.contents.created < ?', $this->options->time);
+                // 不限制未到时间的 定时发布 文章，其他页面都需要限制
+                if ('post' != $this->parameter->type) $select->where('table.contents.created < ?', $this->options->time);
             }
         }
 
