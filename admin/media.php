@@ -24,6 +24,16 @@ include 'menu.php';
                 </p>
 
                 <p>
+                    <span>隶属文章：【
+                    <?php if ($attachment->parentPost && $attachment->parentPost->cid): ?>
+                        <a href="<?php $options->adminUrl('write-' . (0 === strpos($attachment->parentPost->type, 'post') ? 'post' : 'page') . '.php?cid=' . $attachment->parentPost->cid); ?>"><?php $attachment->parentPost->title(); ?></a>
+                    <?php else: ?>
+                        <span class="description"><?php _e('未归档'); ?></span>
+                    <?php endif; ?>
+                    】</span>
+                </p>
+
+                <p>
                     <input id="attachment-url" type="text" class="mono w-100"
                            value="<?php $attachment->attachment->url(); ?>" readonly/>
                 </p>

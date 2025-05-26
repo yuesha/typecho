@@ -2,6 +2,7 @@
 
 namespace Widget\Contents\Attachment;
 
+use Typecho\Config;
 use Typecho\Common;
 use Typecho\Widget\Exception;
 use Typecho\Widget\Helper\Form;
@@ -327,5 +328,18 @@ class Edit extends Contents implements ActionInterface
 
             unset($condition);
         }
+    }
+
+    /**
+     * 所属文章
+     *
+     * @return Config
+     * @throws Exception
+     */
+    protected function ___parentPost(): Config
+    {
+        return new Config($this->db->fetchRow(
+            $this->select()->where('table.contents.cid = ?', $this->parent)->limit(1)
+        ));
     }
 }
