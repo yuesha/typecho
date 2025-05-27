@@ -1047,6 +1047,9 @@ EOF;
          */
         public static function mimeContentType(string $fileName): string
         {
+            /*
+            // 由于文件资源放在三方服务，所以本地获取mime会失败 使用文件后缀直接判断
+
             //改为并列判断
             if (function_exists('mime_content_type')) {
                 return mime_content_type($fileName);
@@ -1060,7 +1063,7 @@ EOF;
                     finfo_close($fInfo);
                     return $mimeType;
                 }
-            }
+            }*/
 
             $mimeTypes = [
                 'ez'       => 'application/andrew-inset',
