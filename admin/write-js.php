@@ -288,6 +288,18 @@ $(document).ready(function() {
     }
 
     $('#btn-cancel-preview').click(cancelPreview);
+    // 复制设定的常用语
+    $('#btn-copy').click(async (e) => {
+        // const text = $(e.target).attr('commonStr');
+        const text = `<?php echo $commonStr; ?>`;
+        const input = document.createElement('textarea');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        document.execCommand('copy');
+        document.body.removeChild(input);
+    });
 
     $(window).bind('message', function (e) {
         if (e.originalEvent.data === 'cancelPreview') {

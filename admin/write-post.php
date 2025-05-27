@@ -2,6 +2,7 @@
 include 'common.php';
 include 'header.php';
 include 'menu.php';
+$commonStr = "> 店名：\n> \n> 时间：" . date('Y.m.d') . "\n> \n> 地址：广东省广州市\n> \n> 人数：1\n> \n> 人均：元";
 
 $post = \Widget\Contents\Post\Edit::alloc()->prepare();
 ?>
@@ -64,6 +65,8 @@ $post = \Widget\Contents\Post\Edit::alloc()->prepare();
                         <span class="right">
                             <input type="hidden" name="do" value="publish" />
                             <input type="hidden" name="cid" value="<?php $post->cid(); ?>"/>
+                            <button type="button" id="btn-copy" class="btn"><i
+                                    class="i-exlink"></i> <?php _e('复制常用'); ?></button>
                             <button type="button" id="btn-preview" class="btn"><i
                                     class="i-exlink"></i> <?php _e('预览文章'); ?></button>
                             <button type="submit" name="do" value="save" id="btn-save"
