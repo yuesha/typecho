@@ -2,8 +2,7 @@
 include 'common.php';
 include 'header.php';
 include 'menu.php';
-$commonStr = "> 店名：\n> \n> 时间：" . date('Y.m.d') . "\n> \n> 地址：广东省广州市\n> \n> 人数：1\n> \n> 人均：元";
-
+$commonStr = $options->commonStr;
 $post = \Widget\Contents\Post\Edit::alloc()->prepare();
 ?>
 <div class="main">

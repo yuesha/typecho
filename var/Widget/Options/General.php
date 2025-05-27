@@ -92,6 +92,7 @@ class General extends Options implements ActionInterface
             'keywords',
             'navPos',
             'allowRegister',
+            'commonStr',
             'allowXmlRpc',
             'lang',
             'timezone'
@@ -197,6 +198,17 @@ class General extends Options implements ActionInterface
             _t('允许访问者注册到你的网站, 默认的注册用户不享有任何写入权限.')
         );
         $form->addInput($allowRegister);
+
+        /** 常用语 */
+        $commonStr = new Form\Element\Textarea(
+            'commonStr',
+            null,
+            $this->options->commonStr,
+            _t('文章编辑时一键复制的内容'),
+            _t('设置这里的内容后，点击文章编辑器下的“复制常用”按钮就可以复制到剪贴板') . '我是一段常用语，可以支持换行等任何内容'
+        );
+        // $commonStr->input->setAttribute('class', 'mono');
+        $form->addInput($commonStr);
 
         /** 导航栏位置 */
         $navPos = new Form\Element\Radio(
