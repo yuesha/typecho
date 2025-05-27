@@ -81,7 +81,7 @@ class Backup extends BaseOptions implements ActionInterface
      */
     public function listFiles(): array
     {
-        return array_map('basename', glob(__TYPECHO_BACKUP_DIR__ . '/*.dat'));
+        return array_reverse(array_map('basename', glob(__TYPECHO_BACKUP_DIR__ . '/*.dat')));
     }
 
     /**
