@@ -230,19 +230,18 @@ $(document).ready(function() {
         }
 
         return async function (file) {
-            if (file.size > maxSize) {
-                // 不是图片，直接抛出去
-                if (!allowedTypes.includes(file.type)) return fileUploadError('size', file);
-
-                // 进行压缩
+            // 图片体积过大，则进行压缩
+            if (allowedTypes.includes(file.type) && file.size > maxSize) {
                 file = await compressImage(file);
             }
-            file.id = 'upload-' + (index++);
 
+            // 类型检测
             const match = file.name.match(/\.([a-z0-9]+)$/i);
             if (!match || types.indexOf(match[1].toLowerCase()) < 0) {
                 return fileUploadError('type', file);
             }
+            
+            file.id = 'upload-' + (index++);
 
             queue.push(file);
             fileUploadStart(file);
