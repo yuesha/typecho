@@ -10,6 +10,7 @@ use Typecho\Widget\Helper\Layout;
 use Widget\ActionInterface;
 use Widget\Base\Contents;
 use Widget\Contents\PrepareEditTrait;
+use Widget\Contents\EditTrait;
 use Widget\Notice;
 use Widget\Upload;
 
@@ -28,6 +29,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  */
 class Edit extends Contents implements ActionInterface
 {
+    use EditTrait;
     use PrepareEditTrait;
 
     /**
@@ -341,5 +343,13 @@ class Edit extends Contents implements ActionInterface
         return new Config($this->db->fetchRow(
             $this->select()->where('table.contents.cid = ?', $this->parent)->limit(1)
         ));
+    }
+
+    /**
+     * @return string
+     */
+    protected function getThemeFieldsHook(): string
+    {
+        return 'themePageFields';
     }
 }
